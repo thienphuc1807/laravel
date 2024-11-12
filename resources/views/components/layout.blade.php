@@ -22,7 +22,8 @@
                                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                                 <x-nav_link href="/" type="a"  :active="request()->is('/')">Home</x-nav_link>
                                 <x-nav_link href="/about" type="a" :active="request()->is('about')">About</x-nav_link>
-                                <x-nav_link href="/contact" type="button" :active="request()->is('contact')">Contact</x-nav_link>
+                                <x-nav_link href="/contact" type="a" :active="request()->is('contact')">Contact</x-nav_link>
+                                <x-nav_link href="/players" :active="request()->is('players')">Players</x-nav_link>
                             </div>
                         </div>
                     </div>
