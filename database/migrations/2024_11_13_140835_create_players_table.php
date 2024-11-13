@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Club;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(\App\Models\Club::class);
             $table->string('name');
             $table->string('position');
             $table->integer('age');
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('players');
     }
 };
