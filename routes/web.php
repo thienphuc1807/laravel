@@ -66,6 +66,9 @@ Route::get('players', function () {
 
     // Option 3
     return view('players', ["players" => Players::all()]);
+
+    // $players = Players::all();
+    // dd($players);
 });
 Route::get('players/{id}', function ($id) use ($players) {
 

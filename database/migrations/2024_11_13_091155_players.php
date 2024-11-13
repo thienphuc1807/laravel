@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->integer("age");
-            $table->string("position");
+            $table->string('name');
+            $table->string('position');
+            $table->integer('age');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('players');
+        //
     }
 };
