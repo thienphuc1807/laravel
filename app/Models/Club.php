@@ -9,4 +9,10 @@ class Club extends Model
 {
     /** @use HasFactory<\Database\Factories\ClubFactory> */
     use HasFactory;
+
+
+    public function players()
+    {
+        return $this->hasMany(Players::class);
+    }
 }

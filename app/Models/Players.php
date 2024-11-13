@@ -9,4 +9,9 @@ class Players extends Model
 {
     /** @use HasFactory<\Database\Factories\PlayersFactory> */
     use HasFactory;
+
+    public function club()
+    {
+        return $this->belongsTo(Club::class);
+    }
 }
