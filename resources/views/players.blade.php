@@ -11,4 +11,5 @@
             </a>
         @endforeach
    </div>
+   <div>{{$players->links()}}</div>
 </x-layout>

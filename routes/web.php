@@ -70,7 +70,14 @@ Route::get('players', function () {
     // Normal
     // $players = Players::all();
     // Eager Loading
-    $players = Players::with('club')->get();
+    // $players = Players::with('club')->get();
+
+    // Pagiante
+    $players = Players::with('club')->paginate(4);
+    // $players = Players::with('club')->simplePaginate(4);
+    // $players = Players::with('club')->cursorPaginate(4);
+
+
 
     return view('players', ["players" => $players]);
 
