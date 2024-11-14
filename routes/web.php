@@ -66,7 +66,13 @@ Route::get('players', function () {
     // return view('players', ["players" => $players]);
 
     // Option 3
-    return view('players', ["players" => Players::all()]);
+
+    // Normal
+    // $players = Players::all();
+    // Eager Loading
+    $players = Players::with('club')->get();
+
+    return view('players', ["players" => $players]);
 
     // $players = Players::all();
     // dd($players);
