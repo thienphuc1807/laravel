@@ -24,6 +24,7 @@
                                 <x-nav_link href="/about" type="a" :active="request()->is('about')">About</x-nav_link>
                                 <x-nav_link href="/contact" type="a" :active="request()->is('contact')">Contact</x-nav_link>
                                 <x-nav_link href="/players" :active="request()->is('players')">Players</x-nav_link>
+                                <x-nav_link href="/clubs" :active="request()->is('clubs')">Clubs</x-nav_link>
                             </div>
                         </div>
                     </div>

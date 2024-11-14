@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Club;
 use Illuminate\Support\Facades\Route;
 use App\Models\Players;
 
@@ -91,4 +92,12 @@ Route::get('players/{id}', function ($id) use ($players) {
     // dd($player);
 
     return view('player', ['player' => $player]);
+});
+
+
+Route::get('clubs', function () {
+    $clubs = Club::all();
+    // dd($clubs);
+
+    return view('clubs', ['clubs' => $clubs]);
 });
