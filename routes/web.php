@@ -73,17 +73,25 @@ Route::get('players', function () {
     // $players = Players::with('club')->get();
 
     // Pagiante
-    $players = Players::with('club')->paginate(4);
+    $players = Players::with('club')->latest()->paginate(4);
     // $players = Players::with('club')->simplePaginate(4);
     // $players = Players::with('club')->cursorPaginate(4);
 
 
 
-    return view('players', ["players" => $players]);
+    return view('players.index', ["players" => $players]);
 
     // $players = Players::all();
     // dd($players);
 });
+
+
+Route::get('players/create', function () {
+    return view('players.create');
+});
+
+
+
 Route::get('players/{id}', function ($id) use ($players) {
 
     // Option 1 (use $variable)
@@ -104,7 +112,7 @@ Route::get('players/{id}', function ($id) use ($players) {
     // check if it work
     // dd($player);
 
-    return view('player', ['player' => $player]);
+    return view('players.show', ['player' => $player]);
 });
 
 
@@ -113,4 +121,17 @@ Route::get('clubs', function () {
     // dd($clubs);
 
     return view('clubs', ['clubs' => $clubs]);
+});
+
+Route::post('players', function () {
+    // dd(request("name"));
+
+    Players::create([
+        'name' => request('name'),
+        'age' => request('age'),
+        'club_id' => request('club_id'),
+        'position' => request('position')
+    ]);
+
+    return redirect('/players');
 });
