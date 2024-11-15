@@ -5,4 +5,5 @@
     <p><strong>Position:</strong> {{$player["position"]}}</p>
     <p><strong>Age:</strong> {{$player["age"]}}</p>
     <p><strong>Club:</strong> {{$player->club->name}}</p>
+    <x-button href="/players/{{$player->id}}/edit">Edit player</x-button>
 </x-layout>

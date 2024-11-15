@@ -38,6 +38,7 @@ Route::get('contact', function () {
     return view('contact');
 });
 
+// index
 Route::get('players', function () {
 
     // Option 1
@@ -74,8 +75,8 @@ Route::get('players', function () {
 
     // Pagiante
     // $players = Players::with('club')->latest()->paginate(4);
-    $players = Players::with('club')->simplePaginate(4);
-    // $players = Players::with('club')->cursorPaginate(4);
+    $players = Players::with('club')->latest()->simplePaginate(4);
+    // $players = Players::with('club')->latest()->cursorPaginate(4);
 
     return view('players.index', ["players" => $players]);
 
@@ -83,13 +84,13 @@ Route::get('players', function () {
     // dd($players);
 });
 
-
+// Create page
 Route::get('players/create', function () {
     return view('players.create');
 });
 
 
-
+// Show
 Route::get('players/{id}', function ($id) use ($players) {
 
     // Option 1 (use $variable)
@@ -113,6 +114,47 @@ Route::get('players/{id}', function ($id) use ($players) {
     return view('players.show', ['player' => $player]);
 });
 
+// Edit
+Route::get('players/{id}/edit', function ($id) use ($players) {
+    $player = Players::find($id);
+    return view('players.edit', ['player' => $player]);
+});
+
+// Update
+Route::patch('players/{id}', function ($id) {
+    // validate
+    request()->validate([
+        'name' => ['required', 'min:4'],
+        'position' => ['required', 'min:2', 'max:3'],
+        'club_id' => ['required', 'max:1'],
+        'position' => ['required', 'min:2', 'max:3'],
+        'age' => ['required', 'min:2'],
+    ]);
+    // authorize (on hold...)
+    // update the player
+    $player = Players::find($id);
+    $player->update([
+        'name' => request('name'),
+        'age' => request('age'),
+        'club_id' => request('club_id'),
+        'position' => request('position')
+    ]);
+    // and persist
+    // redirect to the player page
+    return redirect('/players');
+});
+
+// Delete
+Route::delete('players/{id}', function ($id) use ($players) {
+    // authorize (on hold...)
+    // delete the player
+    Players::find($id)->delete();
+    // and presist
+    // redirect to the players page
+    return redirect('/players');
+});
+
+
 
 Route::get('clubs', function () {
     $clubs = Club::all();
@@ -130,7 +172,6 @@ Route::post('players', function () {
         'club_id' => ['required', 'max:1'],
         'position' => ['required', 'min:2', 'max:3'],
         'age' => ['required', 'min:2'],
-
     ]);
 
     Players::create([
