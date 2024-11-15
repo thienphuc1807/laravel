@@ -73,11 +73,9 @@ Route::get('players', function () {
     // $players = Players::with('club')->get();
 
     // Pagiante
-    $players = Players::with('club')->latest()->paginate(4);
-    // $players = Players::with('club')->simplePaginate(4);
+    // $players = Players::with('club')->latest()->paginate(4);
+    $players = Players::with('club')->simplePaginate(4);
     // $players = Players::with('club')->cursorPaginate(4);
-
-
 
     return view('players.index', ["players" => $players]);
 
@@ -125,6 +123,15 @@ Route::get('clubs', function () {
 
 Route::post('players', function () {
     // dd(request("name"));
+
+    request()->validate([
+        'name' => ['required', 'min:4'],
+        'position' => ['required', 'min:2', 'max:3'],
+        'club_id' => ['required', 'max:1'],
+        'position' => ['required', 'min:2', 'max:3'],
+        'age' => ['required', 'min:2'],
+
+    ]);
 
     Players::create([
         'name' => request('name'),
