@@ -30,8 +30,18 @@
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-4 flex items-center md:ml-6">
-                            <x-nav_link href="/register" :active="request()->is('register')">Register</x-nav_link>
-                            <x-nav_link href="/login" :active="request()->is('login')">Login</x-nav_link>
+                            @guest    
+                                <x-nav_link href="/register" :active="request()->is('register')">Register</x-nav_link>
+                                <x-nav_link href="/login" :active="request()->is('login')">Login</x-nav_link>
+                            @endguest
+
+                            @auth
+                                <form action="/logout" method="post">
+                                    @csrf
+                                    <x-form-button>Log Out</x-form-button>
+                                    {{-- Always use a POST request when logging out a user --}}
+                                </form>
+                            @endauth
                         </div>
                     </div>
                     <div class="-mr-2 flex md:hidden">
