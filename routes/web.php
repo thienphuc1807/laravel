@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\PlayersController;
+use App\Http\Controllers\RegisteredUserController;
 use App\Models\Club;
 use Illuminate\Support\Facades\Route;
 use App\Models\Players;
@@ -94,20 +96,20 @@ Route::view('/contact', 'contact');
 // });
 
 // index (Controller Classes)
-// Route::get('players', [PlayersController::class, 'index']);
+// Route::get('/players', [PlayersController::class, 'index']);
 
 // ---------- CREATE ----------
 // create
-// Route::get('players/create', function () {
+// Route::get('/players/create', function () {
 //     return view('players.create');
 // });
 
 // create (Controller Classes)
-// Route::get('players/create', [PlayersController::class, 'create']);
+// Route::get('/players/create', [PlayersController::class, 'create']);
 
 // ---------- SHOW ----------
 // Show
-// Route::get('players/{id}', function ($id) use ($players) {
+// Route::get('/players/{id}', function ($id) use ($players) {
 
 //     // Option 1 (use $variable)
 //     // $player = Arr::first($players, function ($player) use ($id) {
@@ -138,11 +140,11 @@ Route::view('/contact', 'contact');
 // });
 
 // Show (Controller Classes)
-// Route::get('players/{player}', [PlayersController::class, 'show']);
+// Route::get('/players/{player}', [PlayersController::class, 'show']);
 
 // ---------- EDIT ----------
 // Edit
-// Route::get('players/{id}/edit', function ($id) use ($players) {
+// Route::get('/players/{id}/edit', function ($id) use ($players) {
 //     $player = Players::find($id);
 //     return view('players.edit', ['player' => $player]);
 // });
@@ -153,11 +155,11 @@ Route::view('/contact', 'contact');
 // });
 
 // Edit (Controller Classes)
-// Route::get('players/{player}/edit', [PlayersController::class, 'edit']);
+// Route::get('/players/{player}/edit', [PlayersController::class, 'edit']);
 
 // ---------- UPDATE ----------
 // // Update
-// Route::patch('players/{id}', function ($id) {
+// Route::patch('/players/{id}', function ($id) {
 //     // validate
 //     request()->validate([
 //         'name' => ['required', 'min:4'],
@@ -181,7 +183,7 @@ Route::view('/contact', 'contact');
 // });
 
 // Update (Route Model Binding)
-// Route::patch('players/{player}', function (Players $player) {
+// Route::patch('/players/{player}', function (Players $player) {
 //     // validate
 //     request()->validate([
 //         'name' => ['required', 'min:4'],
@@ -204,12 +206,12 @@ Route::view('/contact', 'contact');
 // });
 
 // Update (Controller Classes)
-// Route::patch('players/{player}', [PlayersController::class, 'update']);
+// Route::patch('/players/{player}', [PlayersController::class, 'update']);
 
 
 // ---------- DELETE ----------
 // Delete
-// Route::delete('players/{id}', function ($id) {
+// Route::delete('/players/{id}', function ($id) {
 //     // authorize (on hold...)
 //     // delete the player
 //     Players::find($id)->delete();
@@ -219,7 +221,7 @@ Route::view('/contact', 'contact');
 // });
 
 // Delete (Route model binding)
-// Route::delete('players/{player}', function (Players $player) {
+// Route::delete('/players/{player}', function (Players $player) {
 //     // authorize (on hold...)
 //     // delete the player
 //     $player->delete();
@@ -229,11 +231,11 @@ Route::view('/contact', 'contact');
 // });
 
 // Delete (Controller Classes)
-// Route::delete('players/{player}', [PlayersController::class, 'delete']);
+// Route::delete('/players/{player}', [PlayersController::class, 'delete']);
 
 // ---------- STORE ----------
 // store
-// Route::post('players', function () {
+// Route::post('/players', function () {
 //     // dd(request("name"));
 
 //     request()->validate([
@@ -255,26 +257,31 @@ Route::view('/contact', 'contact');
 // });
 
 // Create (Controller Classes)
-// Route::post('players', [PlayersController::class, 'store']);
+// Route::post('/players', [PlayersController::class, 'store']);
 
 // ---------- CLUB ----------
 // index club
-Route::get('clubs', function () {
+Route::get('/clubs', function () {
     $clubs = Club::all();
     // dd($clubs);
-    return view('clubs', ['clubs' => $clubs]);
+    return view('/clubs', ['clubs' => $clubs]);
 });
 
 // Route Group
 // Route::controller(PlayersController::class)->group(function () {
-//     Route::get('players', 'index');
-//     Route::get('players/create', 'create');
-//     Route::get('players/{player}', 'show');
-//     Route::get('players/{player}/edit', 'edit');
-//     Route::patch('players/{player}', 'update');
-//     Route::delete('players/{player}', 'delete');
-//     Route::post('players', 'store');
+//     Route::get('/players', 'index');
+//     Route::get('/players/create', 'create');
+//     Route::get('/players/{player}', 'show');
+//     Route::get('/players/{player}/edit', 'edit');
+//     Route::patch('/players/{player}', 'update');
+//     Route::delete('/players/{player}', 'delete');
+//     Route::post('/players', 'store');
 // });
 
 // Route Resource
-Route::resource('players', PlayersController::class);
+Route::resource('/players', PlayersController::class);
+
+Route::get('/register', [RegisteredUserController::class, 'create']);
+Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::get('/login', [LoginUserController::class, 'create']);
+Route::post('/login', [LoginUserController::class, 'store']);
