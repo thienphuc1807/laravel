@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Club;
+use App\Models\Players;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +22,7 @@ class PlayersFactory extends Factory
         return [
             'name' => fake()->name(),
             'club_id' => Club::factory(),
+            'user_id' => User::factory(),
             'position' => 'Unknow',
             'age' => fake()->numberBetween(17, 40)
         ];

@@ -267,23 +267,38 @@ Route::get('/clubs', function () {
     return view('/clubs', ['clubs' => $clubs]);
 });
 
+// Step 5: Middleware Authorization 
 // Route Group
-// Route::controller(PlayersController::class)->group(function () {
-//     Route::get('/players', 'index');
-//     Route::get('/players/create', 'create');
-//     Route::get('/players/{player}', 'show');
-//     Route::get('/players/{player}/edit', 'edit');
-//     Route::patch('/players/{player}', 'update');
-//     Route::delete('/players/{player}', 'delete');
-//     Route::post('/players', 'store');
-// });
+Route::controller(PlayersController::class)->group(function () {
+    Route::get('/players', 'index');
+    Route::get('/players/create', 'create')->middleware('auth');
+    Route::get('/players/{player}', 'show');
+    // Route::get('/players/{player}/edit', 'edit')->middleware(['auth', 'can:edit-player,player']);
+    // Gates
+    // Route::get('/players/{player}/edit', 'edit')->middleware('auth')->can('edit-player', 'player');
+    // Policies
+    Route::get('/players/{player}/edit', 'edit')->middleware('auth')->can('edit', 'player');
+    Route::patch('/players/{player}', 'update');
+    Route::delete('/players/{player}', 'delete');
+    Route::post('/players', 'store')->middleware('auth');
+});
 
 // Route Resource
-Route::resource('/players', PlayersController::class);
+// All route have middleware
+// Route::resource('/players', PlayersController::class)->middleware('auth');
+
+// Only index and show route have middleware
+// Route::resource('/players', PlayersController::class)->only(['index', 'show'])->middleware('auth');
+
+// All route except index and show have middleware
+// Route::resource('/players', PlayersController::class)->except(['index', 'show'])->middleware('auth');
+
+
 
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
-Route::get('/login', [LoginUserController::class, 'create']);
+Route::get('/login', [LoginUserController::class, 'create'])->name('login');
 Route::post('/login', [LoginUserController::class, 'store']);
+
 Route::post('/logout', [LoginUserController::class, 'destroy']);

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Players;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class PlayersController extends Controller
 {
@@ -24,6 +27,18 @@ class PlayersController extends Controller
 
     public function edit(Players $player)
     {
+        // Step 1: Inline authorization
+        // if (Auth::guest()) {
+        //     return redirect('/login');
+        // }
+        // if ($player->user->isNot(Auth::user())) {
+        //     abort(403);
+        // }
+
+        // Step 2: Gates
+        Gate::authorize('edit-player', $player);
+        // Gate::allows('edit-player', $player);
+        // Gate::denies('edit-player', $player);
         return view('players.edit', ['player' => $player]);
     }
 
@@ -34,10 +49,10 @@ class PlayersController extends Controller
             'name' => ['required', 'min:4'],
             'position' => ['required', 'min:2', 'max:3'],
             'club_id' => ['required', 'max:1'],
-            'position' => ['required', 'min:2', 'max:3'],
             'age' => ['required', 'min:2'],
         ]);
         // authorize (on hold...)
+        Gate::authorize('edit-player', $player);
         // update the player
         $player->update([
             'name' => request('name'),
@@ -50,9 +65,10 @@ class PlayersController extends Controller
         return redirect('/players');
     }
 
-    public function delete(Players $player)
+    public function destroy(Players $player)
     {
         // authorize (on hold...)
+        Gate::authorize('edit-player', $player);
         // delete the player
         $player->delete();
         // and presist
@@ -61,12 +77,12 @@ class PlayersController extends Controller
     }
 
     public function store()
+
     {
         request()->validate([
             'name' => ['required', 'min:4'],
             'position' => ['required', 'min:2', 'max:3'],
             'club_id' => ['required'],
-            'position' => ['required', 'min:2', 'max:3'],
             'age' => ['required', 'min:2'],
         ]);
 

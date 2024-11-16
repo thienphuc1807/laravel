@@ -14,12 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        Players::factory(10)->create();
 
-        Players::factory()->create([
-            'name' => 'Bruno Fernandes',
-            'position' => 'CAM',
-            'age' => 30
-        ]);
+        // Players::factory()->create([
+        //     'name' => 'Bruno Fernandes',
+        //     'position' => 'CAM',
+        //     'age' => 30
+        // ]);
     }
 }
