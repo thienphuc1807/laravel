@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PlayersPosted;
 use App\Models\Players;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class PlayersController extends Controller
 {
@@ -86,12 +88,17 @@ class PlayersController extends Controller
             'age' => ['required', 'min:2'],
         ]);
 
-        Players::create([
+        $player = Players::create([
             'name' => request('name'),
             'age' => request('age'),
+            'user_id' => Auth::user()->id,
             'club_id' => request('club_id'),
             'position' => request('position')
         ]);
+
+        Mail::to($player->user)->send(
+            new PlayersPosted($player)
+        );
 
         return redirect('/players');
     }

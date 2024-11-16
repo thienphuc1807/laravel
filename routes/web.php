@@ -3,9 +3,11 @@
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\PlayersController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Mail\PlayersPosted;
 use App\Models\Club;
 use Illuminate\Support\Facades\Route;
 use App\Models\Players;
+use Illuminate\Support\Facades\Mail;
 
 // Option 2
 // $players = [
@@ -47,6 +49,15 @@ Route::view('/about', 'about');
 // });
 
 Route::view('/contact', 'contact');
+
+// Test
+// Route::get('/test', function () {
+//     Mail::to('phucnguyendev187@gmail.com')->send(
+//         new PlayersPosted()
+//     );
+
+//     return 'Done';
+// });
 
 
 
@@ -279,7 +290,7 @@ Route::controller(PlayersController::class)->group(function () {
     // Policies
     Route::get('/players/{player}/edit', 'edit')->middleware('auth')->can('edit', 'player');
     Route::patch('/players/{player}', 'update');
-    Route::delete('/players/{player}', 'delete');
+    Route::delete('/players/{player}', 'destroy');
     Route::post('/players', 'store')->middleware('auth');
 });
 
