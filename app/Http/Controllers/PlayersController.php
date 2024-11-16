@@ -36,7 +36,7 @@ class PlayersController extends Controller
         // }
 
         // Step 2: Gates
-        Gate::authorize('edit-player', $player);
+        // Gate::authorize('edit-player', $player);
         // Gate::allows('edit-player', $player);
         // Gate::denies('edit-player', $player);
         return view('players.edit', ['player' => $player]);
@@ -52,7 +52,7 @@ class PlayersController extends Controller
             'age' => ['required', 'min:2'],
         ]);
         // authorize (on hold...)
-        Gate::authorize('edit-player', $player);
+        // Gate::authorize('edit-player', $player);
         // update the player
         $player->update([
             'name' => request('name'),
@@ -68,7 +68,7 @@ class PlayersController extends Controller
     public function destroy(Players $player)
     {
         // authorize (on hold...)
-        Gate::authorize('edit-player', $player);
+        // Gate::authorize('edit-player', $player);
         // delete the player
         $player->delete();
         // and presist

@@ -6,7 +6,7 @@
     <p><strong>Age:</strong> {{$player["age"]}}</p>
     <p><strong>Club:</strong> {{$player->club->name}}</p>
     {{-- Step 4: Can or Cannot --}}
-    @can('edit-player', $player)
+    @can('edit', $player)
         <x-button href="/players/{{$player->id}}/edit">Edit player</x-button>
     @endcan
 </x-layout>

@@ -6,11 +6,10 @@ use App\Models\Players;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-
 // Step 6: Policies (do the samething like gates)
-class PlayerPolicy
+class PlayersPolicy
 {
-    public function edit(User $user, Players $player): bool
+    public function edit(User $user, Players $player)
     {
         return $player->user->is($user);
     }
