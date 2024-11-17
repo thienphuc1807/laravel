@@ -96,7 +96,7 @@ class PlayersController extends Controller
             'position' => request('position')
         ]);
 
-        Mail::to($player->user)->send(
+        Mail::to($player->user)->queue(
             new PlayersPosted($player)
         );
 

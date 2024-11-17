@@ -3,11 +3,13 @@
 use App\Http\Controllers\LoginUserController;
 use App\Http\Controllers\PlayersController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Jobs\TranslatePlayers;
 use App\Mail\PlayersPosted;
 use App\Models\Club;
 use Illuminate\Support\Facades\Route;
 use App\Models\Players;
 use Illuminate\Support\Facades\Mail;
+use PHPUnit\TextUI\XmlConfiguration\Logging\Logging;
 
 // Option 2
 // $players = [
@@ -58,6 +60,13 @@ Route::view('/contact', 'contact');
 
 //     return 'Done';
 // });
+
+
+Route::get('/test', function () {
+    $player = Players::first();
+    TranslatePlayers::dispatch($player);
+    return 'Done';
+});
 
 
 
