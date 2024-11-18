@@ -62,6 +62,13 @@ Route::view('/contact', 'contact');
 // });
 
 
+// Route::get('/test', function () {
+//     dispatch(function () {
+//         logger('Testing dispatch');
+//     });
+// });
+
+
 Route::get('/test', function () {
     $player = Players::first();
     TranslatePlayers::dispatch($player);
